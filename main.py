@@ -123,3 +123,8 @@ def analytics():
             "TTL expiration"
         ]
     }
+@app.get("/")
+def root():
+    return {"status": "running"}
+
+
