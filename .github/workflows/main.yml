@@ -1,17 +1,27 @@
-name: CI
+name: Playwright Scraper
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 jobs:
-  build:
+  scrape:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run test command
-        run: echo "GitHub Actions is working!"
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install
+
+      - name: Run Scraper - 23f3000736@ds.study.iitm.ac.in
+        run: python scrape.py
