@@ -1,6 +1,7 @@
 from playwright.sync_api import sync_playwright
+import re
 
-seeds = range(36, 46)
+seeds = range(84, 94)
 total_sum = 0
 
 with sync_playwright() as p:
@@ -16,11 +17,10 @@ with sync_playwright() as p:
 
         for cell in cells:
             value = cell.inner_text().strip()
-            if value.isdigit():
-                total_sum += int(value)
+            numbers = re.findall(r"-?\d+", value)
+            for num in numbers:
+                total_sum += int(num)
 
     browser.close()
-
-print("FINAL TOTAL:", total_sum)
 
 print("FINAL TOTAL:", total_sum)
